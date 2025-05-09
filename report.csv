@@ -1,0 +1,4 @@
+IOC Summary,Technique ID,Mapped Technique,Tactic
+powershell downloading exe file,T1059,Command and Scripting Interpreter,Execution
+curl http://malicious-site.com,T1105,Ingress Tool Transfer,Command and Control
+rundll32 executing script,T1218,Signed Binary Proxy Execution,Defense Evasion
