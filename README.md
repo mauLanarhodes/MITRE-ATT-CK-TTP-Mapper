@@ -205,17 +205,17 @@ All patterns are **pre-compiled** at module load time for maximum throughput.
 For each IOC string:
     │
     ▼
-┌──────────────────────────────────────────────────────┐
-│              Technique Database (40+ entries)        │
-│                                                      │
-│  T1059.001 PowerShell  ── [r"powershell", r"-enc",   │
-│                            r"invoke-expression", …]  │
-│  T1003     Credential  ── [r"mimikatz", r"lsass",    │
-│            Dumping         r"sekurlsa", …]           │
+┌───────────────────────────────────────────────────────┐
+│              Technique Database (40+ entries)         │
+│                                                       │
+│  T1059.001 PowerShell  ── [r"powershell", r"-enc",    │
+│                            r"invoke-expression", …]   │
+│  T1003     Credential  ── [r"mimikatz", r"lsass",     │
+│            Dumping         r"sekurlsa", …]            │
 │  T1486     Ransomware  ── [r"ransomware", r"\.locked",│
-│                            r"encrypt.*file", …]      │
-│  … (40+ more)                                        │
-└──────────────────────────────────────────────────────┘
+│                            r"encrypt.*file", …]       │
+│  … (40+ more)                                         │
+└───────────────────────────────────────────────────────┘
     │
     ▼ regex.search() for each pattern against IOC string
     │
@@ -318,9 +318,9 @@ These are displayed in the dashboard separately and can be fed into threat intel
 ### System Architecture
 
 ```
-╔══════════════════════════════════════════════════════════════════════╗
-║                    MITRE ATT&CK TTP MAPPER                          ║
-║                     System Architecture                             ║
+╔═══════════════════════════════════════════════════════════════════╗
+║                    MITRE ATT&CK TTP MAPPER                        ║
+║                     System Architecture                           ║
 ╠══════════════════╦═══════════════════════╦════════════════════════╣
 ║   INPUT LAYER    ║    PROCESSING LAYER   ║     OUTPUT LAYER       ║
 ║                  ║                       ║                        ║
@@ -330,16 +330,16 @@ These are displayed in the dashboard separately and can be fed into threat intel
 ║  ┌────────────┐  ║  │  ┌───────────┐  │  ║  ┌──────────────────┐  ║
 ║  │ JSON / NDJSON──╬──► │  Generic  │  ├──╬──►  JSON Report     │  ║
 ║  └────────────┘  ║  │  │  Parsers  │  │  ║  └──────────────────┘  ║
-║  ┌────────────┐  ║  │  └───────────┘ │  ║  ┌──────────────────┐  ║
-║  │  Sysmon XML│──╬──►  ┌───────────┐ │  ║  │ Markdown Report  │  ║
-║  └────────────┘  ║  │  │  Cloud    │ │  ║  └──────────────────┘  ║
-║  ┌────────────┐  ║  │  │  Parsers  │ │  ║  ┌──────────────────┐  ║
-║  │    CEF     │──╬──►  │ (AWS/AZ/  │ │  ║  │ Navigator Layer  │  ║
-║  └────────────┘  ║  │  │   GCP)    │ │  ║  │    (JSON)        │  ║
-║  ┌────────────┐  ║  │  └───────────┘ │  ║  └──────────────────┘  ║
-║  │CloudTrail  │──╬──►                │  ║  ┌──────────────────┐  ║
-║  └────────────┘  ║  └────────┬────────┘  ║  │  HTML Heat Map   │  ║
-║  ┌────────────┐  ║           │           ║  └──────────────────┘  ║
+║  ┌────────────┐  ║  │  └───────────┘  │  ║  ┌──────────────────┐  ║
+║  │  Sysmon XML│──╬──►  ┌───────────┐  │  ║  │ Markdown Report  │  ║
+║  └────────────┘  ║  │  │  Cloud    │  │  ║  └──────────────────┘  ║
+║  ┌────────────┐  ║  │  │  Parsers  │  │  ║  ┌──────────────────┐  ║
+║  │    CEF     │──╬──►  │ (AWS/AZ/  │  │  ║  │ Navigator Layer  │  ║
+║  └────────────┘  ║  │  │   GCP)    │  │  ║  │    (JSON)        │  ║
+║  ┌────────────┐  ║  │  └───────────┘  │  ║  └──────────────────┘  ║
+║  │CloudTrail  │──╬──►                 │  ║   ┌─────────────────   ║
+║  └────────────┘  ║  └────────┬────────┘  ║  │  HTML Heat Map  │   ║
+║  ┌────────────┐  ║           │           ║  └─────────────────┘   ║
 ║  │  Azure Log │──╬──►  ┌────▼────────┐  ║  ┌──────────────────┐  ║
 ║  └────────────┘  ║  │  │  Mapping    │  ║  │  Sigma Rules     │  ║
 ║  ┌────────────┐  ║  │  │  Engine     │  ║  │  (YAML)          │  ║
