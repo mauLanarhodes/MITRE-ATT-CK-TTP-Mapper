@@ -1,0 +1,15 @@
+# Core
+pyyaml>=6.0
+
+# API
+fastapi>=0.110.0
+uvicorn[standard]>=0.29.0
+pydantic>=2.0
+
+# Dashboard
+streamlit>=1.32.0
+pandas>=2.0
+plotly>=5.18.0
+
+# Optional enrichment (stubs work without these)
+# requests>=2.31.0

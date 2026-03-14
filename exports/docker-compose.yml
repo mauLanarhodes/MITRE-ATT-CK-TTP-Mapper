@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  dashboard:
+    build:
+      context: .
+      target: default
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./output:/app/output
+      - ./samples:/app/samples
+    environment:
+      - STREAMLIT_SERVER_HEADLESS=true
+    restart: unless-stopped
+
+  api:
+    build:
+      context: .
+      target: api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./output:/app/output
+      - ./samples:/app/samples
+    restart: unless-stopped

