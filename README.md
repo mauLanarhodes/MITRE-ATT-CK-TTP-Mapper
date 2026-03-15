@@ -337,31 +337,31 @@ These are displayed in the dashboard separately and can be fed into threat intel
 ║  │    CEF     │──╬──►  │ (AWS/AZ/  │  │  ║  │ Navigator Layer  │  ║
 ║  └────────────┘  ║  │  │   GCP)    │  │  ║  │    (JSON)        │  ║
 ║  ┌────────────┐  ║  │  └───────────┘  │  ║  └──────────────────┘  ║
-║  │CloudTrail  │──╬──►                 │  ║   ┌─────────────────   ║
+║  │CloudTrail  │──╬──►                 │  ║  ┌─────────────────┐   ║
 ║  └────────────┘  ║  └────────┬────────┘  ║  │  HTML Heat Map  │   ║
 ║  ┌────────────┐  ║           │           ║  └─────────────────┘   ║
-║  │  Azure Log │──╬──►  ┌────▼────────┐  ║  ┌──────────────────┐  ║
-║  └────────────┘  ║  │  │  Mapping    │  ║  │  Sigma Rules     │  ║
-║  ┌────────────┐  ║  │  │  Engine     │  ║  │  (YAML)          │  ║
-║  │  GCP Audit │──╬──►  │             │  ║  └──────────────────┘  ║
-║  └────────────┘  ║  │  │ • Pattern   │  ║  ┌──────────────────┐  ║
-║                  ║  │  │   Match     │  ║  │ IOC Extraction   │  ║
-║  ┌────────────┐  ║  │  │ • Confidence├──╬──►  (IPs/URLs/      │  ║
-║  │  CSV / TSV │──╬──►  │   Scoring  │  ║  │   Hashes)        │  ║
-║  └────────────┘  ║  │  │ • Tactic   │  ║  └──────────────────┘  ║
-║                  ║  │  │   Summary  │  ║                        ║
-╠══════════════════╣  │  └────────────┘  ╠════════════════════════╣
-║  INTERFACES      ║  │                  ║   VISUALIZATION        ║
-║                  ║  │                  ║                        ║
-║  ┌────────────┐  ║  │                  ║  ┌──────────────────┐  ║
-║  │  CLI Tool  │──╬──┘                  ║  │ Streamlit UI     │  ║
-║  │ (main.py)  │  ║                     ║  │ • Charts         │  ║
-║  └────────────┘  ║                     ║  │ • Tables         │  ║
-║  ┌────────────┐  ║                     ║  │ • Export Buttons │  ║
-║  │ REST API   │  ║                     ║  └──────────────────┘  ║
-║  │ (FastAPI)  │  ║                     ║                        ║
-║  └────────────┘  ║                     ║                        ║
-╚══════════════════╩═════════════════════╩════════════════════════╝
+║  │  Azure Log │──╬──►  ┌────▼────────┐   ║ ┌──────────────────┐   ║
+║  └────────────┘  ║  │  │  Mapping    │   ║ │  Sigma Rules     │   ║
+║  ┌────────────┐  ║  │  │  Engine     │   ║ │  (YAML)          │   ║
+║  │  GCP Audit │──╬──►  │             │   ║ └──────────────────┘   ║
+║  └────────────┘  ║  │  │ • Pattern   │   ║ ┌──────────────────┐   ║
+║                  ║  │  │   Match     │   ║ │ IOC Extraction   │   ║
+║  ┌────────────┐  ║  │  │ • Confidence├───╬─►  (IPs/URLs/      │   ║
+║  │  CSV / TSV │──╬──►  │   Scoring   │   ║ │   Hashes)        │   ║
+║  └────────────┘  ║  │  │ • Tactic    │   ║ └──────────────────┘   ║
+║                  ║  │  │   Summary   │   ║                        ║
+╠══════════════════╣  │  └─────────────┘   ╠════════════════════════╣
+║  INTERFACES      ║  │                    ║   VISUALIZATION        ║
+║                  ║  │                    ║                        ║
+║  ┌────────────┐  ║  │                    ║  ┌──────────────────┐  ║
+║  │  CLI Tool  │──╬──┘                    ║  │ Streamlit UI     │  ║
+║  │ (main.py)  │  ║                       ║  │ • Charts         │  ║
+║  └────────────┘  ║                       ║  │ • Tables         │  ║
+║  ┌────────────┐  ║                       ║  │ • Export Buttons │  ║
+║  │ REST API   │  ║                       ║  └──────────────────┘  ║
+║  │ (FastAPI)  │  ║                       ║                        ║
+║  └────────────┘  ║                       ║                        ║
+╚══════════════════╩═══════════════════════╩════════════════════════╝
 ```
 
 ---
@@ -407,12 +407,12 @@ User / Analyst
 ┌────────────────────────────────────────────────┐
 │                 Export Layer                   │
 │                                                │
-│  ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐ │
-│  │ CSV  │ │ JSON │ │  MD  │ │ NAV  │ │  HM  │ │
-│  └──────┘ └──────┘ └──────┘ └──────┘ └──────┘ │
-│                    ┌──────┐                    │
-│                    │SIGMA │                    │
-│                    └──────┘                    │
+│  ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐  │
+│  │ CSV  │ │ JSON │ │  MD  │ │ NAV  │ │  HM  │  │
+│  └──────┘ └──────┘ └──────┘ └──────┘ └──────┘  │
+│                    ┌───────┐                   │
+│                    │ SIGMA │                   │
+│                    └───────┘                   │
 └────────────────────────────────────────────────┘
              │
              ▼
@@ -427,15 +427,15 @@ User / Analyst
              IOC String Input
                    │
                    ▼
-         ┌─────────────────┐
+         ┌──────────────────┐
          │ Pattern Matching │
          │  (regex search)  │
-         └────────┬────────┘
+         └────────┬─────────┘
                   │
-         ┌────────▼────────────┐
-         │  Count matched      │
-         │  keywords           │
-         └────────┬────────────┘
+         ┌────────▼────────┐
+         │  Count matched  │
+         │  keywords       │
+         └────────┬────────┘
                   │
        ┌──────────┴──────────────┐
        │                         │
@@ -471,10 +471,10 @@ This flowchart traces every code path through the entire project — from the mo
 ### MASTER FLOWCHART — Full Project Execution
 
 ```
-╔══════════════════════════════════════════════════════════════════════════════════════╗
-║                       USER ENTRY POINTS                                            ║
-╠═══════════════════════╦════════════════════════╦═══════════════════════════════════╣
-║                       ║                        ║                                   ║
+╔═══════════════════════════════════════════════════════════════════════════════════╗
+║                                 USER ENTRY POINTS                                 ║
+╠═══════════════════════╦════════════════════════╦══════════════════════════════════╣
+║                       ║                        ║                                  ║
 ║   ┌───────────────┐   ║   ┌─────────────────┐  ║   ┌───────────────────────────┐  ║
 ║   │  CLI          │   ║   │  Streamlit      │  ║   │  FastAPI REST             │  ║
 ║   │  main.py      │   ║   │  app.py         │  ║   │  api.py                   │  ║
@@ -482,33 +482,33 @@ This flowchart traces every code path through the entire project — from the mo
 ║   │ python main.py│   ║   │  streamlit run  │  ║   │  POST /map                │  ║
 ║   │  -i file.txt  │   ║   │  app.py         │  ║   │  { "iocs": [...] }        │  ║
 ║   └──────┬────────┘   ║   └────────┬────────┘  ║   └─────────────┬─────────────┘  ║
-║          │            ║            │            ║                 │                ║
-╚══════════╪════════════╩════════════╪════════════╩═════════════════╪════════════════╝
-           │                        │                               │
-           │   ┌────────────────────┘                               │
-           │   │                                                     │
-           ▼   ▼                                                     ▼
+║          │            ║            │           ║                 │                ║
+╚══════════╪════════════╩════════════╪═══════════╩═════════════════╪════════════════╝
+           │                         │                             │
+           │   ┌─────────────────────┘                             │
+           │   │                                                   │
+           ▼   ▼                                                   ▼
 ┌──────────────────────────────────────────┐        ┌───────────────────────────────┐
 │         INPUT HANDLING                   │        │   API INPUT HANDLING          │
 │                                          │        │                               │
 │  ┌──────────────────────────────────┐    │        │  Raw JSON body with ioc_list  │
 │  │  args.input  ─► file path?  Y/N  │    │        │  OR file upload endpoint      │
-│  └──────────────┬──────────┬────────┘    │        └──────────────┬────────────────┘
-│                 │ YES      │ NO          │                        │
-│                 ▼          ▼             │                        │
-│         file exists?    ERROR +          │                        │
-│              │          sys.exit(1)      │                        │
-│              ▼                           │                        │
-│    ┌─────────────────┐                   │                        │
-│    │ args.format     │                   │                        │
-│    │ selection:      │                   │                        │
-│    │ auto / text /   │                   │                        │
-│    │ json / sysmon / │                   │                        │
-│    │ cef / csv /     │                   │                        │
-│    │ cloudtrail /    │                   │                        │
-│    │ azure / gcp     │                   │                        │
-│    └────────┬────────┘                   │                        │
-└─────────────┼──────────────────────────--┘                        │
+│  └──────────────┬──────────┬────────┘    │        └────────────────┬──────────────┘
+│                 │ YES      │ NO          │                         │
+│                 ▼          ▼             │                         │
+│         file exists?    ERROR +          │                         │
+│              │          sys.exit(1)      │                         │
+│              ▼                           │                         │
+│    ┌─────────────────┐                   │                         │
+│    │ args.format     │                   │                         │
+│    │ selection:      │                   │                         │
+│    │ auto / text /   │                   │                         │
+│    │ json / sysmon / │                   │                         │
+│    │ cef / csv /     │                   │                         │
+│    │ cloudtrail /    │                   │                         │
+│    │ azure / gcp     │                   │                         │ 
+│    └────────┬────────┘                   │                         │
+└─────────────┼──────────────────────────--┘                         │
               │                                                      │
               ▼                                                      │
 ╔═════════════════════════════════════════════════════════════════╗  │
@@ -558,7 +558,7 @@ This flowchart traces every code path through the entire project — from the mo
 ║                       AWS_SUSPICIOUS_EVENTS dict (20 entries)   ║
 ║                       └─► appends ATT&CK keywords               ║
 ║                           e.g. StopLogging → "indicator removal ║
-║                                defense evasion disable logging"  ║
+║                                defense evasion disable logging" ║
 ║                     • flags AccessDenied → brute force keywords ║
 ║                     • flags ConsoleLogin Failure → spray kw     ║
 ║                                                                 ║
@@ -595,17 +595,17 @@ This flowchart traces every code path through the entire project — from the mo
                                        │ ioc_list (empty?) → sys.exit
                                        │
                                        ▼
-╔══════════════════════════════════════════════════════════════════════════════════════╗
+╔════════════════════════════════════════════════════════════════════════════════════╗
 ║                     MAPPING ENGINE — mapping_engine.py                             ║
 ║                         map_iocs(ioc_list, min_confidence, source)                 ║
-╠══════════════════════════════════════════════════════════════════════════════════════╣
+╠════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                    ║
 ║   MODULE LOAD (one-time at import):                                                ║
 ║   ┌─────────────────────────────────────────────────────────────────────────┐      ║
 ║   │  TECHNIQUE_DB  (defined as list of tuples)                              │      ║
 ║   │                                                                         │      ║
 ║   │  40+ entries, each:                                                     │      ║
-║   │  ( tech_id, name, tactic, [pattern_strings], base_confidence )         │      ║
+║   │  ( tech_id, name, tactic, [pattern_strings], base_confidence )          │      ║
 ║   │                                                                         │      ║
 ║   │  Examples:                                                              │      ║
 ║   │  ("T1059.001", "PowerShell",        "Execution",         [...], "High") │      ║
@@ -615,8 +615,8 @@ This flowchart traces every code path through the entire project — from the mo
 ║   │  ("T1082",     "System Info Disc.", "Discovery",         [...], "Low")  │      ║
 ║   │  … (35+ more)                                                           │      ║
 ║   │                                                                         │      ║
-║   │  _COMPILED_DB = [ re.compile(p, IGNORECASE) for p in patterns ]        │      ║
-║   │                  ↑ ALL PATTERNS PRE-COMPILED AT IMPORT                 │      ║
+║   │  _COMPILED_DB = [ re.compile(p, IGNORECASE) for p in patterns ]         │      ║
+║   │                  ↑ ALL PATTERNS PRE-COMPILED AT IMPORT                  │      ║
 ║   └─────────────────────────────────────────────────────────────────────────┘      ║
 ║                                                                                    ║
 ║   ─────────────────────────────────────────────────────────────────────────────    ║
@@ -624,7 +624,7 @@ This flowchart traces every code path through the entire project — from the mo
 ║   RUNTIME LOOP:                                                                    ║
 ║                                                                                    ║
 ║   timestamp = datetime.utcnow()                                                    ║
-║   min_rank  = CONFIDENCE_RANK[min_confidence]  →  Low=1, Medium=2, High=3         ║
+║   min_rank  = CONFIDENCE_RANK[min_confidence]  →  Low=1, Medium=2, High=3          ║
 ║   results   = []                                                                   ║
 ║                                                                                    ║
 ║   FOR each ioc_string IN ioc_list:                                                 ║
@@ -641,24 +641,24 @@ This flowchart traces every code path through the entire project — from the mo
 ║   │   │       IF match:                                                            ║
 ║   │   │           matched_keywords.append(match.group())                           ║
 ║   │   │                                                                            ║
-║   │   │   IF NOT matched_keywords:  ──► CONTINUE (no match, skip)                 ║
+║   │   │   IF NOT matched_keywords:  ──► CONTINUE (no match, skip)                  ║
 ║   │   │                                                                            ║
-║   │   │   ┌──────────────────────────────────────────────────────────┐            ║
-║   │   │   │           CONFIDENCE SCORING                             │            ║
-║   │   │   │                                                          │            ║
-║   │   │   │   effective_conf = base_conf                             │            ║
-║   │   │   │                                                          │            ║
-║   │   │   │   IF len(matched_keywords) >= 3                          │            ║
-║   │   │   │   AND CONFIDENCE_RANK[base_conf] < 3 (not already High): │            ║
-║   │   │   │       rank = CONFIDENCE_RANK[base_conf] + 1              │            ║
-║   │   │   │       effective_conf = reverse_lookup[rank]              │            ║
-║   │   │   │       ► Low  becomes Medium                              │            ║
-║   │   │   │       ► Medium becomes High                              │            ║
-║   │   │   │       ► High stays High                                  │            ║
-║   │   │   └──────────────────────────────────────────────────────────┘            ║
+║   │   │   ┌──────────────────────────────────────────────────────────┐             ║
+║   │   │   │           CONFIDENCE SCORING                             │             ║
+║   │   │   │                                                          │             ║
+║   │   │   │   effective_conf = base_conf                             │             ║
+║   │   │   │                                                          │             ║
+║   │   │   │   IF len(matched_keywords) >= 3                          │             ║
+║   │   │   │   AND CONFIDENCE_RANK[base_conf] < 3 (not already High): │             ║
+║   │   │   │       rank = CONFIDENCE_RANK[base_conf] + 1              │             ║
+║   │   │   │       effective_conf = reverse_lookup[rank]              │             ║
+║   │   │   │       ► Low  becomes Medium                              │             ║
+║   │   │   │       ► Medium becomes High                              │             ║
+║   │   │   │       ► High stays High                                  │             ║
+║   │   │   └──────────────────────────────────────────────────────────┘             ║
 ║   │   │                                                                            ║
 ║   │   │   IF CONFIDENCE_RANK[effective_conf] < min_rank:                           ║
-║   │   │       CONTINUE  (below threshold, skip)                                   ║
+║   │   │       CONTINUE  (below threshold, skip)                                    ║
 ║   │   │                                                                            ║
 ║   │   │   results.append({                                                         ║
 ║   │   │       "IOC Summary":      ioc_string.strip(),                              ║
@@ -673,7 +673,7 @@ This flowchart traces every code path through the entire project — from the mo
 ║   │                                                                                ║
 ║   RETURN results  →  List[dict]                                                    ║
 ║                                                                                    ║
-╠══════════════════════════════════════════════════════════════════════════════════════╣
+╠════════════════════════════════════════════════════════════════════════════════════╣
 ║   HELPER FUNCTIONS (called after map_iocs):                                        ║
 ║                                                                                    ║
 ║   get_tactic_summary(results)                                                      ║
@@ -689,13 +689,13 @@ This flowchart traces every code path through the entire project — from the mo
                                                │  tactic_summary: dict
                                                │  tech_freq: dict
                                                ▼
-╔══════════════════════════════════════════════════════════════════════════════════════╗
-║                           RESULTS EMPTY CHECK                                      ║
-╠══════════════════════════════════════════════════════════════════════════════════════╣
+╔════════════════════════════════════════════════════════════════════════════════════╗
+║                                RESULTS EMPTY CHECK                                 ║
+╠════════════════════════════════════════════════════════════════════════════════════╣
 ║  IF len(results) == 0:                                                             ║
-║      CLI   → print "No ATT&CK techniques matched." + sys.exit(0)                  ║
+║      CLI   → print "No ATT&CK techniques matched." + sys.exit(0)                   ║
 ║      UI    → st.warning(...) + st.stop()                                           ║
-║      API   → return 200 { "matches": 0, "results": [] }                           ║
+║      API   → return 200 { "matches": 0, "results": [] }                            ║
 ╚══════════════════════════════════════════════╤═════════════════════════════════════╝
                                                │  results NOT empty
                                                │
@@ -786,26 +786,26 @@ This flowchart traces every code path through the entire project — from the mo
           └───────────────────────┬──────────────────────────────┘
                                   │
                                   ▼
-          ┌──────────────────────────────────────────────────────┐
-          │         ASSEMBLE FULL NAVIGATOR v4.5 LAYER           │
-          │                                                      │
-          │  {                                                   │
-          │    "name":        layer_name,                        │
-          │    "versions":    {attack:14, navigator:4.5, ...}    │
-          │    "domain":      "enterprise-attack",               │
-          │    "filters":     { platforms: [Win,Lin,Mac,...] }   │
-          │    "layout":      flat, aggregateFunction:max,       │
-          │                   showID+Name: true                  │
-          │    "techniques":  [ ...entries built above... ]      │
-          │    "gradient": {                                      │
+          ┌───────────────────────────────────────────────────────────┐
+          │         ASSEMBLE FULL NAVIGATOR v4.5 LAYER                │
+          │                                                           │
+          │  {                                                        │
+          │    "name":        layer_name,                             │
+          │    "versions":    {attack:14, navigator:4.5, ...}         │
+          │    "domain":      "enterprise-attack",                    │
+          │    "filters":     { platforms: [Win,Lin,Mac,...] }        │
+          │    "layout":      flat, aggregateFunction:max,            │
+          │                   showID+Name: true                       │
+          │    "techniques":  [ ...entries built above... ]           │
+          │    "gradient": {                                          │
           │        "colors":   [#fff → #ffe766 → #ff9632 → #e60]│
-          │        "minValue": 0,                                │
-          │        "maxValue": max_count                         │
-          │    }                                                 │
-          │    "legendItems": [ cold → low → medium → hot ]      │
-          │    "metadata":    [ generated_by, generated_at ]    │
-          │  }                                                   │
-          └───────────────────────┬──────────────────────────────┘
+          │        "minValue": 0,                                     │
+          │        "maxValue": max_count                              │
+          │    }                                                      │
+          │    "legendItems": [ cold → low → medium → hot ]           │
+          │    "metadata":    [ generated_by, generated_at ]          │
+          │  }                                                        │
+          └───────────────────────┬───────────────────────────────────┘
                                   │
                           ┌───────┴────────┐
                           │                │
@@ -835,10 +835,10 @@ This flowchart traces every code path through the entire project — from the mo
      ┌──────────────────────────────────────────────────────┐
      │  GROUP TECHNIQUES BY TACTIC                          │
      │                                                      │
-     │  tactic_techs = { tactic: [list of tech entries] }  │
+     │  tactic_techs = { tactic: [list of tech entries] }   │
      │  for each tactic in TACTIC_ORDER (14 tactics):       │
      │      sort each column by count descending            │
-     │  active_tactics = [tactics with ≥ 1 technique hit]  │
+     │  active_tactics = [tactics with ≥ 1 technique hit]   │
      └──────────────────────┬───────────────────────────────┘
                             │
                             ▼
@@ -846,7 +846,7 @@ This flowchart traces every code path through the entire project — from the mo
      │  COLOR CALCULATION — per technique cell              │
      │                                                      │
      │  _score_to_color(score, max_score):                  │
-     │      t = score / max_score  (0.0 → 1.0)             │
+     │      t = score / max_score  (0.0 → 1.0)              │
      │                                                      │
      │      color stops:                                    │
      │      0.0  → (255, 231, 102)  pale yellow             │
@@ -854,7 +854,7 @@ This flowchart traces every code path through the entire project — from the mo
      │      1.0  → (230,   0,   0)  red                     │
      │                                                      │
      │      linear interpolation between stops              │
-     │      returns hex color string  e.g. "#ff7a28"        │
+     │      returns hex color string  e.g. "#ff7a28"      │
      │                                                      │
      │  _text_color(bg_hex):                                │
      │      luminance = 0.299R + 0.587G + 0.114B            │
@@ -943,7 +943,7 @@ This flowchart traces every code path through the entire project — from the mo
      │  RULE ASSEMBLY                                       │
      │                                                      │
      │  tactic_tag   = _TACTIC_TAGS[tactic]                 │
-     │                 e.g. "attack.credential_access"       │
+     │                 e.g. "attack.credential_access"      │
      │  technique_tag= "attack.t1003"  (lowercased tid)     │
      │                                                      │
      │  _deterministic_id(tid):                             │
@@ -976,7 +976,7 @@ This flowchart traces every code path through the entire project — from the mo
      │  IF pyyaml installed:                                │
      │      yaml.dump(rule, ...)                            │
      │  ELSE:                                               │
-     │      _simple_yaml_dump(rule)  ← built-in fallback   │
+     │      _simple_yaml_dump(rule)  ← built-in fallback    │
      │      handles: dict, list, str, int, bool scalars     │
      │      quotes strings with special chars automatically │
      └──────────────────────┬───────────────────────────────┘
@@ -1036,7 +1036,7 @@ This flowchart traces every code path through the entire project — from the mo
             ▼
   ┌─────────────────────────────────────────────────────────────────┐
   │  PAGE CONFIG + SIDEBAR                                          │
-  │  • min_confidence selectbox  (Low / Medium / High)             │
+  │  • min_confidence selectbox  (Low / Medium / High)              │
   │  • layer_name text_input                                        │
   └──────────────────────────────┬──────────────────────────────────┘
                                  │
@@ -1090,21 +1090,21 @@ This flowchart traces every code path through the entire project — from the mo
               └──────────────────────────┬─────────────────────────┘
                                          │
                                          ▼
-              ┌────────────────────────────────────────────────────┐
-              │  ANALYTICS CHARTS (Plotly)                         │
-              │                                                    │
-              │  chart_left:  Tactic Distribution                  │
-              │  ├─ px.bar(tactic_df, orientation="h",             │
-              │  │         color_scale="Reds")                     │
-              │                                                    │
-              │  chart_right: Confidence Breakdown                 │
+              ┌─────────────────────────────────────────────────────┐
+              │  ANALYTICS CHARTS (Plotly)                          │
+              │                                                     │
+              │  chart_left:  Tactic Distribution                   │
+              │  ├─ px.bar(tactic_df, orientation="h",              │
+              │  │         color_scale="Reds")                      │
+              │                                                     │
+              │  chart_right: Confidence Breakdown                  │
               │  ├─ px.pie(conf_counts, hole=0.45,                  │
               │  │         color_map={High:red,Med:orange,Low:yel}) │
-              │                                                    │
-              │  full_width:  Technique Frequency                  │
-              │  └─ px.bar(freq_df, orientation="h",               │
-              │            color_scale="YlOrRd")                   │
-              └──────────────────────────┬─────────────────────────┘
+              │                                                     │
+              │  full_width:  Technique Frequency                   │
+              │  └─ px.bar(freq_df, orientation="h",                │
+              │            color_scale="YlOrRd")                    │
+              └──────────────────────────┬──────────────────────────┘
                                          │
                                          ▼
               ┌────────────────────────────────────────────────────┐
@@ -1118,9 +1118,9 @@ This flowchart traces every code path through the entire project — from the mo
               │  EXPORT BUTTONS (3 columns)                        │
               │                                                    │
               │  [📄 Download CSV Report]                          │
-              │  └─► df.to_csv() → st.download_button             │
+              │  └─► df.to_csv() → st.download_button              │
               │                                                    │
-              │  [🗺️ Download Navigator Layer]                    │
+              │  [🗺️ Download Navigator Layer]                     │
               │  └─► generate_navigator_layer(results, name)       │
               │      json.dumps() → st.download_button             │
               │                                                    │
@@ -1275,34 +1275,34 @@ Then navigate to **http://localhost:8501** in your browser.
 ### Dashboard Walkthrough
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│  🛡️ MITRE ATT&CK TTP Mapper                          Sidebar    │
-│                                                   ┌───────────┐ │
-│  ┌─────────────────┐  ┌──────────────────────┐    │ Min Conf  │ │
-│  │  📝 Paste IOCs  │  │  📁 Upload File      │    │ [Low ▼]   │ │
-│  └─────────────────┘  └──────────────────────┘    │           │ │
-│                                                   │ Layer Name│ │
-│  ┌───────────────────────────────────────────┐    │ [______]  │ │
-│  │ powershell -enc ZABv...                   │    └───────────┘ │
-│  │ mimikatz sekurlsa::logonpasswords         │                  │
-│  │ schtasks /create /tn backdoor ...        │                  │
-│  └───────────────────────────────────────────┘                  │
-│                                                                 │
-│  ┌──────────┐ ┌───────────────┐ ┌───────────┐ ┌─────────────┐  │
-│  │ IOCs: 15 │ │ Matches:  28  │ │ Techs:  9 │ │ Tactics:  6 │  │
-│  └──────────┘ └───────────────┘ └───────────┘ └─────────────┘  │
-│                                                                 │
-│  MAPPING RESULTS TABLE (color-coded confidence)                 │
-│  ┌────────────────────────────────────────────────────────┐     │
-│  │ IOC Summary │ Technique ID │ Tactic │ [High] [Med] [Low]│    │
-│  └────────────────────────────────────────────────────────┘     │
-│                                                                 │
-│  ANALYTICS  ┌──────────────────┐  ┌──────────────────────┐     │
-│             │  Tactic Bar Chart│  │  Confidence Pie Chart│     │
-│             └──────────────────┘  └──────────────────────┘     │
-│                                                                 │
-│  EXPORT  [📄 CSV]  [🗺️ Navigator Layer]  [📦 Full Analysis JSON]│
-└─────────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────┐
+│  🛡️ MITRE ATT&CK TTP Mapper                          Sidebar     │
+│                                                   ┌───────────┐  │ 
+│  ┌─────────────────┐  ┌──────────────────────┐    │ Min Conf  │  │
+│  │  📝 Paste IOCs  │  │  📁 Upload File      │    │ [Low ▼]   │  │
+│  └─────────────────┘  └──────────────────────┘    │           │  │
+│                                                   │ Layer Name│  │
+│  ┌───────────────────────────────────────────┐    │ [______]  │  │
+│  │ powershell -enc ZABv...                   │    └───────────┘  │
+│  │ mimikatz sekurlsa::logonpasswords         │                   │
+│  │ schtasks /create /tn backdoor ...         │                   │
+│  └───────────────────────────────────────────┘                   │
+│                                                                  │
+│  ┌──────────┐ ┌───────────────┐ ┌───────────┐ ┌─────────────┐    │
+│  │ IOCs: 15 │ │ Matches:  28  │ │ Techs:  9 │ │ Tactics:  6 │    │
+│  └──────────┘ └───────────────┘ └───────────┘ └─────────────┘    │
+│                                                                  │
+│  MAPPING RESULTS TABLE (color-coded confidence)                  │
+│  ┌──────────────────────────────────────────────────────────┐    │
+│  │ IOC Summary │ Technique ID │ Tactic │ [High] [Med] [Low] │    │
+│  └──────────────────────────────────────────────────────────┘    │
+│                                                                  │
+│  ANALYTICS  ┌───────────────────┐  ┌───────────────────────┐     │
+│             │  Tactic Bar Chart │  │  Confidence Pie Chart │     │
+│             └───────────────────┘  └───────────────────────┘     │
+│                                                                  │
+│  EXPORT  [📄 CSV]  [🗺️ Navigator Layer]  [📦 Full Analysis JSON] |
+└──────────────────────────────────────────────────────────────────┘
 ```
 
 ---
