@@ -10,6 +10,7 @@ from typing import Any, Dict, List
 
 # Canonical ATT&CK Enterprise tactic order
 TACTIC_ORDER = [
+    # Enterprise
     "reconnaissance",
     "resource-development",
     "initial-access",
@@ -24,9 +25,17 @@ TACTIC_ORDER = [
     "command-and-control",
     "exfiltration",
     "impact",
+    # Mobile-specific
+    "network-effects",
+    "remote-service-effects",
+    # ICS-specific
+    "evasion",
+    "inhibit-response-function",
+    "impair-process-control",
 ]
 
 TACTIC_LABELS = {
+    # Enterprise
     "reconnaissance":       "Reconnaissance",
     "resource-development": "Resource Development",
     "initial-access":       "Initial Access",
@@ -41,6 +50,13 @@ TACTIC_LABELS = {
     "command-and-control":  "Command & Control",
     "exfiltration":         "Exfiltration",
     "impact":               "Impact",
+    # Mobile-specific
+    "network-effects":            "Network Effects",
+    "remote-service-effects":     "Remote Service Effects",
+    # ICS-specific
+    "evasion":                    "Evasion",
+    "inhibit-response-function":  "Inhibit Response Function",
+    "impair-process-control":     "Impair Process Control",
 }
 
 
@@ -96,13 +112,40 @@ def generate_heatmap_html(
         tactic = r.get("Tactic", "").lower().replace(" ", "-")
         # normalise tactic name
         tactic = {
-            "command and control": "command-and-control",
-            "lateral movement":    "lateral-movement",
-            "privilege escalation":"privilege-escalation",
-            "defense evasion":     "defense-evasion",
-            "credential access":   "credential-access",
-            "initial access":      "initial-access",
-            "resource development":"resource-development",
+            "command-and-control": "command-and-control",
+            "lateral-movement":    "lateral-movement",
+            "privilege-escalation":"privilege-escalation",
+            "defense-evasion":     "defense-evasion",
+            "credential-access":   "credential-access",
+            "initial-access":      "initial-access",
+            "resource-development":"resource-development",
+            # Mobile tactics
+            "mobile-initial-access":        "initial-access",
+            "mobile-execution":             "execution",
+            "mobile-persistence":           "persistence",
+            "mobile-privilege-escalation":  "privilege-escalation",
+            "mobile-defense-evasion":       "defense-evasion",
+            "mobile-credential-access":     "credential-access",
+            "mobile-discovery":             "discovery",
+            "mobile-collection":            "collection",
+            "mobile-command-and-control":   "command-and-control",
+            "mobile-exfiltration":          "exfiltration",
+            "mobile-impact":               "impact",
+            "mobile-network-effects":      "network-effects",
+            "mobile-remote-service-effects":"remote-service-effects",
+            # ICS tactics
+            "ics-initial-access":            "initial-access",
+            "ics-execution":                 "execution",
+            "ics-persistence":               "persistence",
+            "ics-privilege-escalation":      "privilege-escalation",
+            "ics-evasion":                   "evasion",
+            "ics-discovery":                 "discovery",
+            "ics-lateral-movement":          "lateral-movement",
+            "ics-collection":                "collection",
+            "ics-command-and-control":       "command-and-control",
+            "ics-inhibit-response-function": "inhibit-response-function",
+            "ics-impair-process-control":    "impair-process-control",
+            "ics-impact":                    "impact",
         }.get(tactic, tactic)
 
         ioc = r.get("IOC Summary", "")
@@ -120,6 +163,29 @@ def generate_heatmap_html(
             entry["highest_conf"] = conf
         if len(entry["iocs"]) < 5:
             entry["iocs"].append(ioc[:120])
+
+    # --- Synthesise parent technique entries from sub-techniques ---
+    parent_agg: Dict[str, Dict[str, Any]] = {}
+    for tid, agg in tech_agg.items():
+        if "." in tid:
+            parent_id = tid.split(".")[0]
+            if parent_id not in tech_agg:
+                if parent_id not in parent_agg:
+                    parent_agg[parent_id] = {
+                        "tactic": agg["tactic"],
+                        "highest_conf": agg["highest_conf"],
+                        "count": 0,
+                        "iocs": [],
+                    }
+                pa = parent_agg[parent_id]
+                pa["count"] += agg["count"]
+                if _conf_rank.get(agg["highest_conf"], 0) > _conf_rank.get(pa["highest_conf"], 0):
+                    pa["highest_conf"] = agg["highest_conf"]
+                for s in agg["iocs"]:
+                    if len(pa["iocs"]) < 5:
+                        pa["iocs"].append(s)
+
+    tech_agg.update(parent_agg)
 
     if not tech_agg:
         return "<html><body><p>No techniques matched.</p></body></html>"

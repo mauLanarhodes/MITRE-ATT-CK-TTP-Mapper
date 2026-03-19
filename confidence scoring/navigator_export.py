@@ -14,6 +14,7 @@ from typing import Any, Dict, List, Optional
 # Tactic display name → Navigator short name
 # ---------------------------------------------------------------------------
 TACTIC_MAP = {
+    # Enterprise
     "Reconnaissance": "reconnaissance",
     "Resource Development": "resource-development",
     "Initial Access": "initial-access",
@@ -28,6 +29,33 @@ TACTIC_MAP = {
     "Command and Control": "command-and-control",
     "Exfiltration": "exfiltration",
     "Impact": "impact",
+    # Mobile
+    "Mobile Initial Access": "initial-access",
+    "Mobile Execution": "execution",
+    "Mobile Persistence": "persistence",
+    "Mobile Privilege Escalation": "privilege-escalation",
+    "Mobile Defense Evasion": "defense-evasion",
+    "Mobile Credential Access": "credential-access",
+    "Mobile Discovery": "discovery",
+    "Mobile Collection": "collection",
+    "Mobile Command and Control": "command-and-control",
+    "Mobile Exfiltration": "exfiltration",
+    "Mobile Impact": "impact",
+    "Mobile Network Effects": "network-effects",
+    "Mobile Remote Service Effects": "remote-service-effects",
+    # ICS
+    "ICS Initial Access": "initial-access",
+    "ICS Execution": "execution",
+    "ICS Persistence": "persistence",
+    "ICS Privilege Escalation": "privilege-escalation",
+    "ICS Evasion": "evasion",
+    "ICS Discovery": "discovery",
+    "ICS Lateral Movement": "lateral-movement",
+    "ICS Collection": "collection",
+    "ICS Command and Control": "command-and-control",
+    "ICS Inhibit Response Function": "inhibit-response-function",
+    "ICS Impair Process Control": "impair-process-control",
+    "ICS Impact": "impact",
 }
 
 # Confidence rank (used only for metadata / tie-breaking)
@@ -80,6 +108,32 @@ def generate_navigator_layer(
         # Keep first N IOC summaries for the comment
         if len(entry["ioc_summaries"]) < 5:
             entry["ioc_summaries"].append(ioc[:120])
+
+    # --- Synthesise parent technique entries from sub-techniques ---
+    # When sub-techniques like T1136.001 and T1136.002 both match, the
+    # parent T1136 should also appear in the layer (aggregated).
+    parent_agg: Dict[str, Dict[str, Any]] = {}
+    for tid, agg in tech_agg.items():
+        if "." in tid:
+            parent_id = tid.split(".")[0]
+            if parent_id not in tech_agg:  # only synthesise if not already present
+                if parent_id not in parent_agg:
+                    parent_agg[parent_id] = {
+                        "technique_id": parent_id,
+                        "tactic": agg["tactic"],
+                        "highest_conf": agg["highest_conf"],
+                        "count": 0,
+                        "ioc_summaries": [],
+                    }
+                pa = parent_agg[parent_id]
+                pa["count"] += agg["count"]
+                if _CONF_RANK.get(agg["highest_conf"], 0) > _CONF_RANK.get(pa["highest_conf"], 0):
+                    pa["highest_conf"] = agg["highest_conf"]
+                for s in agg["ioc_summaries"]:
+                    if len(pa["ioc_summaries"]) < 5:
+                        pa["ioc_summaries"].append(s)
+
+    tech_agg.update(parent_agg)
 
     # --- Build technique entries ---
     # Score = raw match count so the gradient reflects true frequency (heat)
